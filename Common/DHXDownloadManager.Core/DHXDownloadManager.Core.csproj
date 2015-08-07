@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{464370C2-DF8A-4A45-8E74-216B0AE5B5C6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DHXDownloadManager.Core</RootNamespace>
+    <AssemblyName>DHXDownloadManager.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Class1.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Source\Components\ManagerBestHTTP.cs" />
+    <Compile Include="Source\Components\ManagerComponent.cs" />
+    <Compile Include="Source\Components\ManagerWWW.cs" />
+    <Compile Include="Source\Engine\DownloadEngineBestHTTP.cs" />
+    <Compile Include="Source\Engine\DownloadEngineWWW.cs" />
+    <Compile Include="Source\Engine\IDownloadEngine.cs" />
+    <Compile Include="Source\Extension\BinarySearch.cs" />
+    <Compile Include="Source\Helper\SerialBinaryReadWrite.cs" />
+    <Compile Include="Source\Helper\SerialXMLReadWrite.cs" />
+    <Compile Include="Source\IDownloadManager.cs" />
+    <Compile Include="Source\Ledger\Group.cs" />
+    <Compile Include="Source\Ledger\GroupLedger.cs" />
+    <Compile Include="Source\Ledger\Ledger.cs" />
+    <Compile Include="Source\Manager.cs" />
+    <Compile Include="Source\ManagerSleep.cs" />
+    <Compile Include="Source\Manifest\Errors.cs" />
+    <Compile Include="Source\Manifest\Manifest.cs" />
+    <Compile Include="Source\Manifest\ManifestFileStream.cs" />
+    <Compile Include="Source\Manifest\ManifestList.cs" />
+    <Compile Include="Source\Manifest\ManifestMemoryStream.cs" />
+    <Compile Include="Source\Manifest\ManifestStream.cs" />
+    <Compile Include="Source\Progress\Component\ProgressComponent.cs" />
+    <Compile Include="Source\Progress\ManagerProgress.cs" />
+    <Compile Include="Source\Progress\Progress.cs" />
+    <Compile Include="Source\Tests\TestInstances\AbortTest.cs" />
+    <Compile Include="Source\Tests\TestInstances\BaseTest.cs" />
+    <Compile Include="Source\Tests\TestInstances\DestroyTest01.cs" />
+    <Compile Include="Source\Tests\TestInstances\DestroyTest02.cs" />
+    <Compile Include="Source\Tests\TestInstances\FailTest.cs" />
+    <Compile Include="Source\Tests\TestInstances\FailTest02.cs" />
+    <Compile Include="Source\Tests\TestInstances\FileStreamTest.cs" />
+    <Compile Include="Source\Tests\TestInstances\GroupLedgerTest01.cs" />
+    <Compile Include="Source\Tests\TestInstances\GroupLedgerTest02.cs" />
+    <Compile Include="Source\Tests\TestInstances\GroupLedgerTest03.cs" />
+    <Compile Include="Source\Tests\TestInstances\GroupLedgerTest04.cs" />
+    <Compile Include="Source\Tests\TestInstances\LedgerTest01.cs" />
+    <Compile Include="Source\Tests\TestInstances\LedgerTest02.cs" />
+    <Compile Include="Source\Tests\TestInstances\MemoryStreamTest.cs" />
+    <Compile Include="Source\Tests\TestInstances\PostTest.cs" />
+    <Compile Include="Source\Tests\TestInstances\ProgressTest.cs" />
+    <Compile Include="Source\Tests\TestInstances\SerializationTest.cs" />
+    <Compile Include="Source\Tests\TestInstances\SortingTest.cs" />
+    <Compile Include="Source\Tests\TestInstances\StatusCodeTest.cs" />
+    <Compile Include="Source\Tests\Tests.cs" />
+    <Compile Include="Source\Tests\TestsBestHTTP.cs" />
+    <Compile Include="Source\Tests\TestsWWW.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Source\Tests\TestSceneBestHTTP.unity" />
+    <None Include="Source\Tests\TestSceneWWW.unity" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
