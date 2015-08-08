@@ -5,6 +5,11 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DHXDownloadManager.Core", "DHXDownloadManager.Core.csproj", "{464370C2-DF8A-4A45-8E74-216B0AE5B5C6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DHXDownloadManager.NET", "..\DHXDownloadManager.NET\DHXDownloadManager.NET\DHXDownloadManager.NET.csproj", "{A4CF90C2-C264-4FB0-92C4-97F672AE8ED2}"
+	ProjectSection(ProjectDependencies) = postProject
+		{464370C2-DF8A-4A45-8E74-216B0AE5B5C6} = {464370C2-DF8A-4A45-8E74-216B0AE5B5C6}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +20,10 @@ Global
 		{464370C2-DF8A-4A45-8E74-216B0AE5B5C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{464370C2-DF8A-4A45-8E74-216B0AE5B5C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{464370C2-DF8A-4A45-8E74-216B0AE5B5C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4CF90C2-C264-4FB0-92C4-97F672AE8ED2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4CF90C2-C264-4FB0-92C4-97F672AE8ED2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4CF90C2-C264-4FB0-92C4-97F672AE8ED2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4CF90C2-C264-4FB0-92C4-97F672AE8ED2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

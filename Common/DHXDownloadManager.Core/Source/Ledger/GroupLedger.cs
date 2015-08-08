@@ -38,7 +38,7 @@ namespace DHXDownloadManager
 	    // Use this for initialization
         public GroupLedger(Ledger ledger, string fileName, string debugFileName)
         {
-            ledger = Ledger;
+            Ledger = ledger;
 
             _FileName = fileName;
             _DebugFileName = debugFileName;

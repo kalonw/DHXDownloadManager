@@ -70,14 +70,14 @@ namespace DHXDownloadManager.Tests
         }
 
 	    // Use this for initialization
-	    IEnumerator Start()
+	    public IEnumerator Start()
         {
             yield return null;
             _Ledger.Clear();
             _GroupLedger.Clear();
 
-            _Tests.Add(new PostTest<T>(this));
             _Tests.Add(new BaseTest<T>(this));
+            _Tests.Add(new PostTest<T>(this));
             _Tests.Add(new FailTest<T>(this));
             _Tests.Add(new FailTest02<T>(this));
             _Tests.Add(new FileStreamTest<T>(this));

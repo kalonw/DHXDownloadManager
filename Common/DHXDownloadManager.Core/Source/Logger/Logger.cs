@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DHXDownloadManager
 {
-    class Logger
+    public static class Logger
     {
         public static System.Action<string> OnLogged;
 

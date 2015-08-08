@@ -24,6 +24,9 @@ namespace DHXDownloadManager
 
         }
 
+
+        // FIXME: This will break on Unity iOS when building different versions
+        // write path somehow needs to be a static ref to Application.persistentDataPath
         public ManifestFileStream(string url, string writePath, Flags flag)
             : base(url, flag)
         {

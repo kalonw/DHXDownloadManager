@@ -22,16 +22,16 @@ namespace DHXDownloadManager.Tests
 
             Start();
 
-            Manifest metadata = new Manifest("httpfs://s3.amazonaws.com/piko_public/Test.png", 0);
-            _Parent._Manager.AddDownload(metadata);
-
             int succeed = -1;
-
+            Manifest metadata = new Manifest("httpfs://s3.amazonaws.com/piko_public/Test.png", 0);
             metadata.OnDownloadFailed += delegate(Manifest m)
             {
-                _Parent._Manager.AddDownload(m);
                 m.OnDownloadFailed += (m2) => succeed = 1;
+                _Parent._Manager.AddDownload(m);
             };
+            _Parent._Manager.AddDownload(metadata);
+
+
 
             while (succeed == -1)
             {
