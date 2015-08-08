@@ -28,14 +28,8 @@ namespace DHXDownloadManager.Tests
             metadata.OnDownloadFailed += (m) => succeed = 1;
             metadata.OnAbort += (m) => { succeed = 1; Logger.Log("FailTest::Abort"); };
             metadata.OnFinalizeMetadata += () => succeed = 1;
-            try
-            { 
-                _Parent._Manager.AddDownload(metadata);
-            }
-            catch
-            {
-                succeed = 1;
-            }
+
+            _Parent._Manager.AddDownload(metadata);
 
             while (succeed == -1)
             {

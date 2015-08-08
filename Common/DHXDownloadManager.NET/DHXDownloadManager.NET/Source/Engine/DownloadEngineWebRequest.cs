@@ -46,20 +46,32 @@ namespace DHXDownloadManager
 
             string url = manifest.URL;
             string realURL = System.Uri.EscapeUriString(url);
-
-            Uri httpSite = new Uri(realURL);
-            WebRequest wreq = null;
-            // Create the request object.
-            try
-            { 
-                wreq = WebRequest.Create(httpSite);
-            }
-            catch(System.Exception e)
+            Uri httpSite = null;
+            bool success = Uri.TryCreate(realURL, UriKind.Absolute, out httpSite) && (httpSite.Scheme == Uri.UriSchemeHttp || httpSite.Scheme == Uri.UriSchemeHttps);
+            if(success == false)
             {
+                Logger.Log("Invalid URI");
+                manifest.Attempts = -1;
                 if (OnEngineDownloadFailed != null)
                     OnEngineDownloadFailed(manifest);
                 return;
             }
+            WebRequest wreq = null;
+            // Create the request object.
+            try
+            {
+                wreq = WebRequest.Create(httpSite);
+            }
+            catch (System.Exception e)
+            {
+                Logger.Log("EXCEPTION");
+                manifest.Attempts = -1;
+                if (OnEngineDownloadFailed != null)
+                    OnEngineDownloadFailed(manifest);
+                return;
+            }
+            finally { }
+
             // Create the state object.
             RequestState rs = new RequestState();
 
@@ -188,9 +200,34 @@ namespace DHXDownloadManager
 
                 // Continue reading data until 
                 // responseStream.EndRead returns –1.
+                try
+                {
                 IAsyncResult ar = responseStream.BeginRead(
                    rs.BufferRead, 0, BUFFER_SIZE,
                    new AsyncCallback(ReadCallBack), rs);
+                }
+                catch (System.Net.WebException e)
+                {
+                    if (manifest != null)
+                    {
+                        if(e.Response != null)
+                        { 
+                            int code = (int)((HttpWebResponse)e.Response).StatusCode;
+                            manifest.ResponseCode = code;
+                        }
+                        manifest.Abort();
+                    }
+                    return;
+                }
+                catch (System.Exception e)
+                {
+                    if (manifest != null)
+                    {
+                        manifest.Abort();
+                    }
+                    return;
+                }
+                finally { }
             }
             else
             {
