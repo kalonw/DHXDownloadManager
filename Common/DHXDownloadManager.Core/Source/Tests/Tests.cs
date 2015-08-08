@@ -110,5 +110,33 @@ namespace DHXDownloadManager.Tests
 	    }
 
 
+        static void Recurse(System.Collections.IEnumerator enumerator)
+        {
+            while (enumerator.MoveNext())
+            {
+                if (enumerator.Current != null)
+                {
+                    System.Collections.IEnumerator enumerator2 = enumerator.Current as System.Collections.IEnumerator;
+                    if (enumerator2 != null)
+                    {
+                        Recurse(enumerator2);
+                    }
+                }
+            }
+        }
+
+        public static void RunTests(string tmpDir)
+        {
+
+            Manager<T> manager = new Manager<T>();
+            manager.Verbose = false;
+            Ledger ledger = new Ledger(manager, false, string.Concat(tmpDir, "ledger.bin"), string.Concat(tmpDir, "filetmp.xml"));
+
+            GroupLedger groupLedger = new GroupLedger(ledger, string.Concat(tmpDir, "group_ledger.bin"), string.Concat(tmpDir, "group_ledger.xml"));
+            DHXDownloadManager.Tests.Tests<T> test = new DHXDownloadManager.Tests.Tests<T>(manager, ledger, groupLedger);
+            System.Collections.IEnumerator start = test.Start();
+            Recurse(start);
+
+        }
     }
 }
