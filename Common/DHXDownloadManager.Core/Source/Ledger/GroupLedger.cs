@@ -1,7 +1,7 @@
 ﻿﻿/* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
-using UnityEngine;
+
 using System.Collections;
 using System.Collections.Generic;
 using System;
@@ -16,7 +16,7 @@ namespace DHXDownloadManager
     /// <summary>
     /// Record of Groups
     /// </summary>
-    public class GroupLedger : MonoBehaviour {
+    public class GroupLedger {
         public Ledger Ledger;
 
         /// <summary>
@@ -36,10 +36,12 @@ namespace DHXDownloadManager
         string _FileName;
         string _DebugFileName;
 	    // Use this for initialization
-        void Awake()
+        public GroupLedger(Ledger ledger, string fileName, string debugFileName)
         {
-            _FileName = string.Concat(Application.persistentDataPath + "/", "group_ledger.bin");
-            _DebugFileName = string.Concat(Application.persistentDataPath + "/", "group_ledger.xml");
+            ledger = Ledger;
+
+            _FileName = fileName;
+            _DebugFileName = debugFileName;
             Read();
             Ledger.OnAddedToLedger += Ledger_OnAddedToLedger;
             _WriteTimer.AutoReset = false;

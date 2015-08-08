@@ -1,7 +1,7 @@
 ﻿﻿/* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
-using UnityEngine;
+
 using System.Collections;
 using System.Collections.Generic;
 
@@ -34,14 +34,14 @@ namespace DHXDownloadManager
         void _StartDownload(Manifest request)
 	    {
             if (Verbose)
-                Debug.Log("DownloadManager::_StartDownload: " + request.URL);
+                Logger.Log("DownloadManager::_StartDownload: " + request.URL);
             _DownloadEngine.PerformDownload(request);
 	    }
 
         void Retry(Manifest metadata)
         {
             if (Verbose)
-                Debug.Log("DownloadManager::Retry: " + metadata.URL + ":" + _DownloadingCount + ":" + metadata.Attempts);
+                Logger.Log("DownloadManager::Retry: " + metadata.URL + ":" + _DownloadingCount + ":" + metadata.Attempts);
             metadata.OnAbort -= request_OnAbort;
             metadata.__Retry();
             _ActiveDownloads.Remove(metadata);
@@ -52,7 +52,7 @@ namespace DHXDownloadManager
         void ClearDownload(Manifest metadata)
         {
             if (Verbose)
-                Debug.Log("DownloadManager::ClearDownload: " + metadata.URL + ":" + _DownloadingCount + ":" + metadata.IsActive);
+                Logger.Log("DownloadManager::ClearDownload: " + metadata.URL + ":" + _DownloadingCount + ":" + metadata.IsActive);
 
             _ActiveDownloads.Remove(metadata);
             metadata.__ClearManifest();
@@ -63,7 +63,7 @@ namespace DHXDownloadManager
 	    void StartNextDownload()
         {
             if (Verbose)
-                Debug.Log("DownloadManager::StartNextDownload: " + _LowRequests.Count + ":" + _HighRequests.Count + ":" + _DownloadingCount);
+                Logger.Log("DownloadManager::StartNextDownload: " + _LowRequests.Count + ":" + _HighRequests.Count + ":" + _DownloadingCount);
             if (_LowRequests.Count > 0 || _HighRequests.Count > 0)
 		    {
                 if (_DownloadingCount < MaxDownloadCount)
@@ -98,7 +98,7 @@ namespace DHXDownloadManager
                 if (_DownloadingCount <= 0)
                 {
                     if (Verbose)
-			            Debug.Log ("End DL");
+			            Logger.Log ("End DL");
                     if (_ActiveDownloads.Count != 0)
                         throw new System.Exception("ActiveDownloads.Count != 0");
 			        if(OnDownloadingEnd != null)
@@ -114,7 +114,7 @@ namespace DHXDownloadManager
         void request_OnAbort(Manifest obj)
         {
             if (Verbose)
-                Debug.Log("DownloadManager::request_OnAbort: " + obj.URL);
+                Logger.Log("DownloadManager::request_OnAbort: " + obj.URL);
             _AbortRequest(obj);
         }
 
@@ -125,7 +125,7 @@ namespace DHXDownloadManager
             {
 
                 if (Verbose)
-                    Debug.Log("DownloadManager::AddDownload: " + metadata.URL);
+                    Logger.Log("DownloadManager::AddDownload: " + metadata.URL);
                 try
                 {
                     // Queue the manifest, and start it if we're not downloading it
@@ -139,7 +139,7 @@ namespace DHXDownloadManager
                     {
                         _Processing = true;
                         if (Verbose)
-                            Debug.Log("Start DL Queue " + _Processing.ToString());
+                            Logger.Log("Start DL Queue " + _Processing.ToString());
 
                         if (OnDownloadingStart != null)
                         {
@@ -163,7 +163,7 @@ namespace DHXDownloadManager
                 }
                 catch(System.Exception e)
                 {
-                    Debug.LogError("Failed to AddDownload " + metadata.URL + ". " + e);
+                    Logger.Log("Failed to AddDownload " + metadata.URL + ". " + e);
                 }
                 finally { }
             }
@@ -173,7 +173,7 @@ namespace DHXDownloadManager
         void _AbortRequest(Manifest manifest)
         {
             if (Verbose)
-                Debug.Log("DownloadManager::request_OnAbort: " + manifest.URL);
+                Logger.Log("DownloadManager::request_OnAbort: " + manifest.URL);
             ClearDownload(manifest);
             _DownloadEngine.Abort(manifest);
             StartNextDownload();
@@ -184,14 +184,14 @@ namespace DHXDownloadManager
             
 
             if (Verbose)
-                Debug.Log("DownloadManager::OnEngineDownloadFailed: " + manifest.URL + ":" + _DownloadingCount);
+                Logger.Log("DownloadManager::OnEngineDownloadFailed: " + manifest.URL + ":" + _DownloadingCount);
 
             /// fail & retry
             if (manifest.HasFlag(Manifest.Flags.InfiniteRetry) == false)
                 manifest.Attempts--;
 
             if (Verbose)
-                Debug.Log(manifest.URL + ": DL Failed " + manifest.Attempts + " left");
+                Logger.Log(manifest.URL + ": DL Failed " + manifest.Attempts + " left");
 
             // Only do this part if it hasn't been done already
             if (manifest.IsActive)
@@ -213,7 +213,7 @@ namespace DHXDownloadManager
         void OnEngineDownloadFinished(Manifest manifest)
         {
             if (Verbose)
-                Debug.Log("DownloadManager::OnEngineDownloadFinished: " + manifest.URL);
+                Logger.Log("DownloadManager::OnEngineDownloadFinished: " + manifest.URL);
             /// finish
             manifest.__Finish();
             ClearDownload(manifest);

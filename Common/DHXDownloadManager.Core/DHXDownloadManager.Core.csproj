@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DHXDownloadManager.Core</RootNamespace>
     <AssemblyName>DHXDownloadManager.Core</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -32,6 +33,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -39,13 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Source\Components\ManagerBestHTTP.cs" />
-    <Compile Include="Source\Components\ManagerComponent.cs" />
-    <Compile Include="Source\Components\ManagerWWW.cs" />
-    <Compile Include="Source\Engine\DownloadEngineBestHTTP.cs" />
-    <Compile Include="Source\Engine\DownloadEngineWWW.cs" />
     <Compile Include="Source\Engine\IDownloadEngine.cs" />
     <Compile Include="Source\Extension\BinarySearch.cs" />
     <Compile Include="Source\Helper\SerialBinaryReadWrite.cs" />
@@ -54,15 +50,14 @@
     <Compile Include="Source\Ledger\Group.cs" />
     <Compile Include="Source\Ledger\GroupLedger.cs" />
     <Compile Include="Source\Ledger\Ledger.cs" />
+    <Compile Include="Source\Logger\Logger.cs" />
     <Compile Include="Source\Manager.cs" />
-    <Compile Include="Source\ManagerSleep.cs" />
     <Compile Include="Source\Manifest\Errors.cs" />
     <Compile Include="Source\Manifest\Manifest.cs" />
     <Compile Include="Source\Manifest\ManifestFileStream.cs" />
     <Compile Include="Source\Manifest\ManifestList.cs" />
     <Compile Include="Source\Manifest\ManifestMemoryStream.cs" />
     <Compile Include="Source\Manifest\ManifestStream.cs" />
-    <Compile Include="Source\Progress\Component\ProgressComponent.cs" />
     <Compile Include="Source\Progress\ManagerProgress.cs" />
     <Compile Include="Source\Progress\Progress.cs" />
     <Compile Include="Source\Tests\TestInstances\AbortTest.cs" />
@@ -85,12 +80,6 @@
     <Compile Include="Source\Tests\TestInstances\SortingTest.cs" />
     <Compile Include="Source\Tests\TestInstances\StatusCodeTest.cs" />
     <Compile Include="Source\Tests\Tests.cs" />
-    <Compile Include="Source\Tests\TestsBestHTTP.cs" />
-    <Compile Include="Source\Tests\TestsWWW.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Source\Tests\TestSceneBestHTTP.unity" />
-    <None Include="Source\Tests\TestSceneWWW.unity" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

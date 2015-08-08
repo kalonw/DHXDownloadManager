@@ -1,7 +1,7 @@
 ﻿﻿/* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
-using UnityEngine;
+
 using System.Collections;
 using System.Collections.Generic;
 using System;
@@ -40,11 +40,11 @@ namespace DHXDownloadManager
             }
             catch (System.IO.FileNotFoundException e)
             {
-                UnityEngine.Debug.LogWarning("Could not read from file: " + fileName + ". " + e);
+                Logger.Log("Could not read from file: " + fileName + ". " + e);
             }
             catch(System.Exception e)
             {
-                UnityEngine.Debug.LogWarning("Exception: " + fileName + ". " + e);
+                Logger.Log("Exception: " + fileName + ". " + e);
             }
             finally
             {
@@ -72,7 +72,7 @@ namespace DHXDownloadManager
             }
             catch (System.Exception e)
             {
-                UnityEngine.Debug.LogWarning("Exception: " + fileName + ". " + e);
+                Logger.Log("Exception: " + fileName + ". " + e);
             }
             finally
             {

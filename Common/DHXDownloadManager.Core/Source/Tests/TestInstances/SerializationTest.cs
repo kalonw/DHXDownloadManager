@@ -1,7 +1,7 @@
 ﻿﻿/* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
-using UnityEngine;
+
 using System.Collections;
 
 using System.Collections.Generic;
@@ -29,10 +29,15 @@ namespace DHXDownloadManager.Tests
             list.AddOrFind(ref metadata);
             metadata.POSTFieldKVP["SerializationTest01"] = "SerializationTest01";
             metadata.POSTFieldKVP["SerializationTest02"] = "SerializationTest02";
-            string fileName = System.IO.Path.Combine(Application.persistentDataPath, "serialize_test.bin");
+            string fileName = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "serialize_test.bin");
             list.Write(fileName);
+            long tstart = System.DateTime.UtcNow.Ticks;
+            long tnow = System.DateTime.UtcNow.Ticks;
+            while (tstart < (tnow - 10000))
+            {
+                yield return 0;
 
-            yield return new WaitForSeconds(1.0f);
+            }
             ManifestList<ManifestURLSort> list2 = new ManifestList<ManifestURLSort>();
             list2.Read(fileName);
 

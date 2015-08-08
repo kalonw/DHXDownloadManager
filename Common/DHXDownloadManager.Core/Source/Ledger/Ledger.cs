@@ -1,16 +1,15 @@
 ﻿﻿/* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
-using UnityEngine;
+
 using System.Collections;
 namespace DHXDownloadManager
 { 
     /// <summary>
     /// Record of Manifests
     /// </summary>
-    public class Ledger : MonoBehaviour {
+    public class Ledger {
 
-        public GameObject Manager;
         public IDownloadManager _Manager;
 
         /// <summary>
@@ -31,20 +30,14 @@ namespace DHXDownloadManager
         System.Timers.Timer _WriteTimer = new System.Timers.Timer(2000);
 
 	    // Use this for initialization
-	    void Awake () {
-            MonoBehaviour[] components = Manager.GetComponents<MonoBehaviour>();
-            for (int i = 0; i < components.Length; i++)
-            {
-                if(components[i] is IDownloadManager)
-                {
-                    _Manager = components[i] as IDownloadManager;
-                    break;
-                }
-            }
+        public Ledger(IDownloadManager manager, bool debug, string fileName, string debugFileName)
+        {
+            _Manager = manager;
+            Debug = debug;
             _URLList.Debug = Debug;
             _IDList.Debug = Debug;
-            _FileName = string.Concat(Application.persistentDataPath + "/", "ledger.bin");
-            _DebugFileName = string.Concat(Application.persistentDataPath + "/", "ledger.xml");
+            _FileName = fileName;
+            _DebugFileName = debugFileName;
             _WriteTimer.AutoReset = false;
             _WriteTimer.Elapsed += t_Elapsed;
 	    }

@@ -1,7 +1,7 @@
 ﻿﻿/* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
-using UnityEngine;
+
 using System.Collections;
 
 using System.Collections.Generic;
@@ -49,7 +49,7 @@ namespace DHXDownloadManager.Tests
             succeed = 0;
             try
             {
-                string file1path = Application.streamingAssetsPath + "/DownloadManager/Tests/Test.png";
+                string file1path = System.IO.Path.GetTempPath() + "/DownloadManager/Tests/Test.png";
                 byte[] bytes1 = System.IO.File.ReadAllBytes(file1path);
 
                 byte[] bytes2 = ms.GetBuffer();

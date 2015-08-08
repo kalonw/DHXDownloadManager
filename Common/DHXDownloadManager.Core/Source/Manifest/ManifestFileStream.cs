@@ -1,7 +1,7 @@
 ﻿﻿/* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
-using UnityEngine;
+
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -16,22 +16,23 @@ namespace DHXDownloadManager
     [DataContract]
     public class ManifestFileStream : ManifestStream
     {
-
+        string _WritePath;
+        public string WritePath { get { return _WritePath;} }
         public ManifestFileStream()
             : base()
         {
 
         }
 
-        public ManifestFileStream(string url, Flags flag)
+        public ManifestFileStream(string url, string writePath, Flags flag)
             : base(url, flag)
         {
-
+            _WritePath = writePath;
         }
 
         public static void GetPaths(ManifestFileStream metadata, out string realPath, out string tmpPath)
         {
-            realPath = string.Concat(Application.persistentDataPath, metadata.RelativePath);
+            realPath = string.Concat(metadata.WritePath, metadata.RelativePath);
             tmpPath = string.Concat(realPath, ".tmp");
         }
 
@@ -56,7 +57,7 @@ namespace DHXDownloadManager
             catch (IOException e)
             {
                 SetError(ManifestErrors.IOException);
-                Debug.LogError(e);
+                Logger.Log(e);
                 if (stream != null)
                 {
                     stream.Close();
@@ -67,7 +68,7 @@ namespace DHXDownloadManager
             catch (Exception e)
             {
                 SetError(ManifestErrors.Unknown);
-                Debug.LogError(e);
+                Logger.Log(e);
                 if (stream != null)
                 { 
                     stream.Close();
@@ -102,13 +103,13 @@ namespace DHXDownloadManager
             catch (IOException e)
             {
                 SetError(ManifestErrors.IOException);
-                Debug.LogError(e);
+                Logger.Log(e);
                 return 1;
             }
             catch (Exception e)
             {
                 SetError(ManifestErrors.Unknown);
-                Debug.LogError(e);
+                Logger.Log(e);
                 return 1;
             }
 
@@ -129,7 +130,7 @@ namespace DHXDownloadManager
             catch (Exception e)
             {
                 SetError(ManifestErrors.Unknown);
-                Debug.LogError(e);
+                Logger.Log(e);
                 return 1;
             }
 
@@ -158,7 +159,7 @@ namespace DHXDownloadManager
             }
             catch(System.Exception e)
             {
-                Debug.Log(e);
+                Logger.Log(e);
             }
             finally
             {

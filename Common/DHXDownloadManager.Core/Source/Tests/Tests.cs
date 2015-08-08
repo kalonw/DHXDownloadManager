@@ -1,7 +1,7 @@
 ﻿﻿/* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
-using UnityEngine;
+
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,50 +23,55 @@ namespace DHXDownloadManager.Tests
             yield return null;
         }
 
-        virtual public Coroutine DoTest()
+        virtual public IEnumerator DoTest()
         {
-            return _Parent.StartCoroutine(_DoTest());
+            return _DoTest();
         }
 
         protected void Start()
         {
-            UnityEngine.Debug.Log(GetType().Name + "::Start");
+            Logger.Log(GetType().Name + "::Start");
         }
 
         protected void Finish()
         {
-            UnityEngine.Debug.Log(GetType().Name + "::Finish");
+            Logger.Log(GetType().Name + "::Finish");
         }
 
         protected void Fail()
         {
-            UnityEngine.Debug.LogError(GetType().Name + "::Fail");
+            Logger.Log(GetType().Name + "::Fail");
             if (OnTestFail != null)
                 OnTestFail();
         }
 
         protected void Success()
         {
-            UnityEngine.Debug.Log("<color=green>" + GetType().Name + "::Success</color>");
+            Logger.Log("<color=green>" + GetType().Name + "::Success</color>");
             if (OnTestSucceed != null)
                 OnTestSucceed();
         }
     }
 
 
-    public class Tests<T> : MonoBehaviour where T : IDownloadEngine, new()
+    public class Tests<T> where T : IDownloadEngine, new()
     {
-        public GameObject TestParent;
-        public ManagerComponent<T> _Manager;
+        public Manager<T> _Manager;
         public Ledger _Ledger;
         public GroupLedger _GroupLedger;
         List<Test<T>> _Tests = new List<Test<T>>();
+
+
+        public Tests(Manager<T> manager, Ledger ledger, GroupLedger groupLedger)
+        {
+            _Manager = manager;
+            _Ledger = ledger;
+            _GroupLedger = groupLedger;
+        }
+
 	    // Use this for initialization
 	    IEnumerator Start()
         {
-
-            _Ledger = TestParent.GetComponent<Ledger>();
-            _Manager = TestParent.GetComponent<ManagerComponent<T>>();
             yield return null;
             _Ledger.Clear();
             _GroupLedger.Clear();
@@ -99,8 +104,8 @@ namespace DHXDownloadManager.Tests
                 _Tests[i].OnTestSucceed += () => succeedCount++;
                 yield return _Tests[i].DoTest();
             }
-            Debug.Log(failCount + "/" + _Tests.Count + " Failures");
-            Debug.Log(succeedCount + "/" + _Tests.Count + " Successes");
+            Logger.Log(failCount + "/" + _Tests.Count + " Failures");
+            Logger.Log(succeedCount + "/" + _Tests.Count + " Successes");
 
 	    }
 

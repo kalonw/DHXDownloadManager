@@ -1,7 +1,7 @@
 ﻿﻿/* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
-using UnityEngine;
+
 using System.Collections;
 
 using System.Collections.Generic;
@@ -24,7 +24,7 @@ namespace DHXDownloadManager.Tests
             Start();
             _Parent._Ledger.Clear();
 
-            Manifest metadata = new ManifestFileStream("https://s3.amazonaws.com/piko_public/Test.png", ManifestFileStream.Flags.None);
+            Manifest metadata = new ManifestFileStream("https://s3.amazonaws.com/piko_public/Test.png", System.IO.Path.GetTempPath(),ManifestFileStream.Flags.None);
 
             int succeed = -1;
             metadata.OnDownloadStarted += (m) => succeed = -1;

@@ -1,7 +1,7 @@
 ﻿﻿/* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
-using UnityEngine;
+
 using System.Collections;
 
 using System.Collections.Generic;
@@ -27,7 +27,7 @@ namespace DHXDownloadManager.Tests
             manifest.OnDownloadFinished += manifest_OnDownloadFinished;
             _Parent._Manager.AddDownload(manifest);
             while (succeed == -1)
-                yield return new WaitForFixedUpdate();
+                yield return 0;
             Finish();
             if (succeed == 1)
                 Success();
@@ -40,13 +40,13 @@ namespace DHXDownloadManager.Tests
 
         void manifest_OnDownloadFinished(Manifest metadata)
         {
-            Debug.Log("manifest_OnDownloadFinished");
+            Logger.Log("manifest_OnDownloadFinished");
             succeed = 0;
         }
 
         void manifest_OnDownloadFailed(Manifest metadata)
         {
-            Debug.Log("manifest_OnDownloadFailed");
+            Logger.Log("manifest_OnDownloadFailed");
             succeed = (metadata.ResponseCode == 403) ? 1 : 0;
         }
     }
