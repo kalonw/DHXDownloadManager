@@ -1,4 +1,4 @@
-﻿﻿/* This Source Code Form is subject to the terms of the Mozilla Public
+﻿/* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
@@ -193,9 +193,18 @@ namespace DHXDownloadManager
             int read = responseStream.EndRead(asyncResult);
             if (read > 0)
             {
-                manifest.__UpdateBytes(read, (int)rs.Request.ContentLength);
+				int readSize = (int)rs.Request.ContentLength;
+				manifest.__UpdateBytes(read, readSize);
                 List<byte[]> bytes = new List<byte[]>();
-                bytes.Add(rs.BufferRead);
+
+
+				// kind of crappy, have to copy out the right amount of bytes
+				byte[] resizedBytes = new byte[read];
+				for(int i = 0; i < read; i++)
+				{
+					resizedBytes[i] = rs.BufferRead[i];
+				}
+				bytes.Add(resizedBytes);
                 manifest.__Update(bytes);
 
                 // Continue reading data until 
